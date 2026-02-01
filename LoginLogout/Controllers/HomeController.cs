@@ -33,6 +33,10 @@ namespace LoginLogout.Controllers
         }
         public IActionResult Login()
         {
+            if (HttpContext.Session.GetString("userSession") != null)
+            {
+                return RedirectToAction("Dashboard");
+            }
             return View();
         }
         [HttpPost]
