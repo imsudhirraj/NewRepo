@@ -60,6 +60,10 @@ namespace LoginLogout.Controllers
                 HttpContext.Session.Remove("userSession");
                 return RedirectToAction("Login");
             }
+            else
+            {
+                return RedirectToAction("Login");
+            }
             return View();
         }
 
