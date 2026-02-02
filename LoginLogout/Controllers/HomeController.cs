@@ -19,6 +19,22 @@ namespace LoginLogout.Controllers
         {
             return View();
         }
+        public IActionResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Register(TBL_USER_MASTER user)
+        {
+            if (ModelState.IsValid)
+            {
+                await context.TBL_USER_MASTER.AddAsync(user);
+                await context.SaveChangesAsync();
+                TempData["success"] = "Registered Successfully.";
+                return RedirectToAction("Login");
+            }            
+            return View();
+        }
         public IActionResult Dashboard()
         {
             if (HttpContext.Session.GetString("userSession") != null)
@@ -48,7 +64,7 @@ namespace LoginLogout.Controllers
                     x.USER_PASSWORD == user.USER_PASSWORD);
             if (myuser != null)
             {
-                HttpContext.Session.SetString("userSession", myuser.EMAIL);
+                HttpContext.Session.SetString("userSession", myuser.NAME);
                 return RedirectToAction("Dashboard");
             }
             else
